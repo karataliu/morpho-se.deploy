@@ -13,10 +13,12 @@ service:
 serviceRoot:
   - name: Photos
     type: photo[]
+    allows : [read, create, delete]
     searchable: true
     insertable: true
   - name: People
     type: person[]
+    allows : [update]
     searchable: true
     insertable: true
     concurrencyProperties: concurrency
@@ -24,6 +26,7 @@ serviceRoot:
     disallowInsert: [trips, friends]
   - name: Airlines
     type: airline[]
+    allows : [read, update]
     searchable: true
     insertable: true
   - name: Airports
@@ -51,9 +54,6 @@ types:
       - address
       - name: city
         type: city
-  - name: eventLocation
-    baseType: location
-    optionalProperties: buildingInfo
   - name: airportLocation
     baseType: location
     requiredProperties:
@@ -122,26 +122,6 @@ types:
         type: dateTimeOffset
       - name: duration
         type: duration
-  - name: publicTransportation
-    baseType: planItem
-    optionalProperties: seatNumber
-  - name: flight
-    baseType: publicTransportation
-    requiredProperties: flightNumber
-    optionalProperties:
-      - name: from
-        type: airport
-      - name: to
-        type: airport
-      - name: airline
-        type: airline
-  - name: event
-    baseType: planItem
-    dynamic: true
-    optionalProperties:
-      - description
-      - name: occursAt
-        type: eventLocation
   - name: trip
     key: tripId
     requiredProperties:
