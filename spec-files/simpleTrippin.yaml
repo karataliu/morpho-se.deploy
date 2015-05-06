@@ -1,48 +1,48 @@
 # Handcrafted YAML representation of http://services.odata.org/V4/TripPinServiceRW/$metadata
 service:
   name: "TripPin OData Reference Service"
+  version:
+    current: 1.0.0
   description: "TripPin is a fictional reference service demonstrating the capabilities of OData v4."
   auth: none
   conformance: minimal
   supportsFilterFunctions: [contains, endswith, startswith, length, indexof, substring, tolower, toupper, trim, concat, year, month, day, hour, minute, second, round, floor, ceiling, cast, isof]
+  host: services.odata.org
+  basePath: /V4/(S(cnbm44wtbc1v5bgrlek5lpcc))/TripPinServiceRW
 
-root:
-  - name: photos
+serviceRoot:
+  - name: Photos
     type: photo[]
     searchable: true
     insertable: true
-  - name: people
+  - name: People
     type: person[]
     searchable: true
     insertable: true
     concurrencyProperties: concurrency
     disallowNavigation: friends
     disallowInsert: [trips, friends]
-  - name: airlines
+  - name: Airlines
     type: airline[]
     searchable: true
     insertable: true
-  - name: airports
+  - name: Airports
     type: airport[]
     searchable: true
     insertable: false
     deletable: false
-  - name: me
+  - name: Me
     type: person
-  - name: getNearestAirport
+  - name: GetNearestAirport
     params:
       - name: lat
         type: double
       - name: lon
         type: double
     returns: airport
-  - name: resetDataSource
+  - name: ResetDataSource
 
-enums:
-  - name: personGender
-    members: [unknown, female, male]
-
-types:
+types:  
   - name: city
     requiredProperties: [countryRegion, name, region]
   - name: location
@@ -77,8 +77,6 @@ types:
         type: string[]
       - name: addressInfo
         type: location[]
-      - name: gender
-        type: gender
       - name: concurrency
         type: int64
         computed: true
